@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
     tools:context=".SignUpActivity">
 
@@ -32,6 +31,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="130dp"
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -43,12 +43,12 @@
             android:padding="10dp"
             android:hint="Enter email"
             android:textColorHint="@color/black"
-            style="@style/CustomTextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/CustomTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputEmail"
+                android:id="@+id/signUpEmail"
                 android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
@@ -61,12 +61,12 @@
             android:padding="10dp"
             android:hint="Enter password"
             android:textColorHint="@color/black"
-            style="@style/CustomTextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/CustomTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputPassword"
+                android:id="@+id/signUpPassword"
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
@@ -79,12 +79,12 @@
             android:padding="10dp"
             android:hint="Confirm password"
             android:textColorHint="@color/black"
-            style="@style/CustomTextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/CustomTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputConfirmPassword"
+                android:id="@+id/signUpConfirmPassword"
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
@@ -93,11 +93,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/signUpButton"
             app:cornerRadius="20dp"
             android:padding="10dp"
-            android:id="@+id/register"
             android:backgroundTint="@color/purple_500"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:text="Register"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/switchToSignIn"
+                android:id="@+id/switchToSignInButton"
                 android:textColor="@color/purple_500"
                 android:text="Sign in"
                 android:layout_width="match_parent"
@@ -129,4 +129,13 @@
 
     </LinearLayout>
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_overlay" />
+
+</RelativeLayout>
