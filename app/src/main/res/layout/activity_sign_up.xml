@@ -139,7 +139,7 @@
         android:layout_centerInParent="true"
         android:visibility="gone"
         android:indeterminate="true"
-        android:indeterminateDuration="@integer/material_motion_duration_short_1"
+        android:indeterminateDuration="700"
         android:indeterminateDrawable="@drawable/progress_overlay" />
 
 </RelativeLayout>
