@@ -3,7 +3,7 @@ package com.example.memo.utils;
 import android.content.Context;
 import android.widget.Toast;
 
-public class SharedMethods {
+public class ShowToastMessage {
     public void showToastMessage(Context context, String message) {
         int toastDuration = Toast.LENGTH_SHORT;
 

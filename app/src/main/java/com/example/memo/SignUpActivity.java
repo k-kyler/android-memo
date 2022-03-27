@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.memo.utils.SharedMethods;
+import com.example.memo.utils.ShowToastMessage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -23,7 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
 
-    private SharedMethods sharedMethods = new SharedMethods();
+    private final ShowToastMessage showToastMessage = new ShowToastMessage();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +56,16 @@ public class SignUpActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
 
             if (signUpEmail.getText().toString().matches("")) {
-                sharedMethods.showToastMessage(getApplicationContext(), "Please enter your email");
+                showToastMessage.showToastMessage(getApplicationContext(), "Please enter your email");
                 progressBar.setVisibility(View.GONE);
             } else if (signUpPassword.getText().toString().matches("")) {
-                sharedMethods.showToastMessage(getApplicationContext(), "Please enter your password");
+                showToastMessage.showToastMessage(getApplicationContext(), "Please enter your password");
                 progressBar.setVisibility(View.GONE);
             } else if (signUpConfirmPassword.getText().toString().matches("")) {
-                sharedMethods.showToastMessage(getApplicationContext(), "Please enter your confirm password");
+                showToastMessage.showToastMessage(getApplicationContext(), "Please enter your confirm password");
                 progressBar.setVisibility(View.GONE);
             } else if (!signUpPassword.getText().toString().equals(signUpConfirmPassword.getText().toString())) {
-                sharedMethods.showToastMessage(getApplicationContext(), "Your passwords are not match");
+                showToastMessage.showToastMessage(getApplicationContext(), "Your passwords are not match");
                 progressBar.setVisibility(View.GONE);
             } else {
                 firebaseAuth = FirebaseAuth.getInstance();
@@ -76,12 +76,12 @@ public class SignUpActivity extends AppCompatActivity {
                             Intent intent = new Intent(SignUpActivity.this, ActiveAccountActivity.class);
 
                             progressBar.setVisibility(View.GONE);
-                            sharedMethods.showToastMessage(getApplicationContext(), "Sign up successful");
+                            showToastMessage.showToastMessage(getApplicationContext(), "Sign up successful");
                             startActivity(intent);
                             finish();
                         } else {
                             progressBar.setVisibility(View.GONE);
-                            sharedMethods.showToastMessage(getApplicationContext(), "This email have been used");
+                            showToastMessage.showToastMessage(getApplicationContext(), "This email have been used");
                         }
                     }
                 });
