@@ -71,13 +71,14 @@ public class SignUpActivity extends AppCompatActivity {
                 showToastMessage("Please enter your password");
             } else if (signUpConfirmPassword.getText().toString().matches("")) {
                 showToastMessage("Please enter your confirm password");
-            } else if (signUpPassword != signUpConfirmPassword) {
+            } else if (!signUpPassword.getText().toString().equals(signUpConfirmPassword.getText().toString())) {
                 showToastMessage("Your passwords are not match");
             } else {
+                firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.createUserWithEmailAndPassword(signUpEmail.getText().toString(), signUpPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isComplete()) {
+                        if (task.isSuccessful()) {
                             Intent intent = new Intent(SignUpActivity.this, ActiveAccountActivity.class);
 
                             progressBar.setVisibility(View.GONE);

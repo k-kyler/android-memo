@@ -42,13 +42,14 @@
             android:layout_marginTop="30dp"
             android:padding="10dp"
             android:hint="Enter email"
-            android:textColorHint="@color/black"
+            android:textColorHint="#9F9F9F"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/CustomTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signUpEmail"
+                android:textColor="@color/black"
                 android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
@@ -60,7 +61,7 @@
             android:layout_marginHorizontal="25dp"
             android:padding="10dp"
             android:hint="Enter password"
-            android:textColorHint="@color/black"
+            android:textColorHint="#9F9F9F"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/CustomTextInputLayout">
@@ -68,6 +69,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signUpPassword"
                 android:importantForAutofill="no"
+                android:textColor="@color/black"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -78,7 +80,7 @@
             android:layout_marginHorizontal="25dp"
             android:padding="10dp"
             android:hint="Confirm password"
-            android:textColorHint="@color/black"
+            android:textColorHint="#9F9F9F"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/CustomTextInputLayout">
@@ -86,6 +88,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signUpConfirmPassword"
                 android:importantForAutofill="no"
+                android:textColor="@color/black"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -136,6 +139,7 @@
         android:layout_centerInParent="true"
         android:visibility="gone"
         android:indeterminate="true"
+        android:indeterminateDuration="@integer/material_motion_duration_short_1"
         android:indeterminateDrawable="@drawable/progress_overlay" />
 
 </RelativeLayout>
