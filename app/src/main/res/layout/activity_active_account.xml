@@ -18,9 +18,9 @@
 
         <TextView
             android:textAlignment="center"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:textColor="@color/black"
-            android:text="We have sent you a verification email"
+            android:text="Thank you for joining with us"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -28,7 +28,7 @@
             android:layout_marginTop="15dp"
             android:textAlignment="center"
             android:textSize="15dp"
-            android:text="Thank you for joining with us"
+            android:text="You should activate your account to use all features and ignore this message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -48,11 +48,11 @@
             android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/goToEmail"
+            style="@style/CustomDisabledButton"
+            android:id="@+id/sendEmail"
             app:cornerRadius="20dp"
             android:padding="10dp"
-            android:backgroundTint="@color/purple_500"
-            android:text="Go to email"
+            android:text="Send email"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:layout_marginLeft="25dp"

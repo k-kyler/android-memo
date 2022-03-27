@@ -19,4 +19,9 @@
         <item name="boxStrokeColor">#2C57DA</item>
         <item name="boxStrokeWidth">1dp</item>
     </style>
+
+    <!-- Custom disabled button -->
+    <style name="CustomDisabledButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="backgroundTint">@drawable/disabled_button</item>
+    </style>
 </resources>
