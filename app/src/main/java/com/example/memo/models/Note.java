@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class Note {
     private String id;
+    private String uid;
     private String title;
     private String type;
     private String content;
@@ -17,6 +18,14 @@ public class Note {
         this.content = content;
         this.createdAt = createdAt;
         this.isPinned = isPinned;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getId() {
