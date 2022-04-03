@@ -32,6 +32,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         switchToSignUp();
+        switchToForgotPassword();
         signIn();
     }
 
@@ -47,6 +48,16 @@ public class SignInActivity extends AppCompatActivity {
 
         switchToSignUpButton.setOnClickListener(view -> {
             Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+
+            startActivity(intent);
+        });
+    }
+
+    private void switchToForgotPassword() {
+        TextView switchToForgotPasswordButton = findViewById(R.id.switchToForgotPasswordButton);
+
+        switchToForgotPasswordButton.setOnClickListener(view -> {
+            Intent intent = new Intent(SignInActivity.this, ForgotPasswordActivity.class);
 
             startActivity(intent);
         });
