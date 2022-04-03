@@ -76,6 +76,24 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_marginHorizontal="25dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/switchToForgotPasswordButton"
+                android:textColor="@color/purple_500"
+                android:text="Forgot password?"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/signInButton"
             app:cornerRadius="20dp"
@@ -90,7 +108,7 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_width="wrap_content"
@@ -105,7 +123,7 @@
             <TextView
                 android:id="@+id/switchToSignUpButton"
                 android:textColor="@color/purple_500"
-                android:text="Sign up"
+                android:text="Create an account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
