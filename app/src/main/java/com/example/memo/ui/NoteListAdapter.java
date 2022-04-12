@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,8 +34,8 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//        holder.name.setText(listItems.get(position).getName());
-//        holder.email.setText(listItems.get(position).getEmail());
+        holder.title.setText(noteItems.get(position).getTitle());
+        holder.content.setText(noteItems.get(position).getContent());
     }
 
     @Override
@@ -43,14 +44,14 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-//        TextView name;
-//        TextView email;
+        TextView title;
+        TextView content;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-//            name = itemView.findViewById(R.id.itemName);
-//            email = itemView.findViewById(R.id.itemEmail);
+            title = itemView.findViewById(R.id.noteItemTitle);
+            content = itemView.findViewById(R.id.noteItemContent);
         }
     }
 }

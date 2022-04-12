@@ -1,23 +1,30 @@
 package com.example.memo.models;
 
-import java.time.LocalDateTime;
-
 public class Note {
-    private String id;
+    private final String id;
     private String uid;
     private String title;
     private String type;
     private String content;
-    private LocalDateTime createdAt;
+    private String createdAt;
     private boolean isPinned;
+    private boolean isRemoved;
 
-    public Note(String id, String title, String type, String content, LocalDateTime createdAt, boolean isPinned) {
+    public Note(String id, String uid, String title, String type, String content,
+//                String createdAt,
+                boolean isPinned, boolean isRemoved) {
         this.id = id;
+        this.uid = uid;
         this.title = title;
         this.type = type;
         this.content = content;
         this.createdAt = createdAt;
         this.isPinned = isPinned;
+        this.isRemoved = isRemoved;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getUid() {
@@ -26,10 +33,6 @@ public class Note {
 
     public void setUid(String uid) {
         this.uid = uid;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getTitle() {
@@ -56,12 +59,8 @@ public class Note {
         this.content = content;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 
     public boolean isPinned() {
@@ -70,5 +69,13 @@ public class Note {
 
     public void setPinned(boolean pinned) {
         isPinned = pinned;
+    }
+
+    public boolean isRemoved() {
+        return isRemoved;
+    }
+
+    public void setRemoved(boolean removed) {
+        isRemoved = removed;
     }
 }
