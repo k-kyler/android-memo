@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Note> noteItems = new ArrayList<>();
 
         db.collection("notes")
+            .orderBy("isPinned", Query.Direction.DESCENDING)
             .orderBy("createdAt", Query.Direction.DESCENDING)
             .whereEqualTo("uid", firebaseUser.getUid())
             .get()
