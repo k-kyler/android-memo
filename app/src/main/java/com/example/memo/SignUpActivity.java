@@ -14,11 +14,13 @@ import com.example.memo.utils.ShowToastMessage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
     private TextInputEditText signUpEmail, signUpPassword, signUpConfirmPassword;
+    private TextInputLayout signUpEmailLayout, signUpPasswordLayout, signUpConfirmPasswordLayout;
     private ProgressBar progressBar;
 
     private FirebaseAuth firebaseAuth;
@@ -46,26 +48,39 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void signUp() {
         signUpEmail = findViewById(R.id.signUpEmail);
+        signUpEmailLayout = findViewById(R.id.signUpEmailLayout);
         signUpPassword = findViewById(R.id.signUpPassword);
+        signUpPasswordLayout = findViewById(R.id.signUpPasswordLayout);
         signUpConfirmPassword = findViewById(R.id.signUpConfirmPassword);
+        signUpConfirmPasswordLayout = findViewById(R.id.signUpConfirmPasswordLayout);
         progressBar = findViewById(R.id.progressBar);
 
         Button signUpButton = findViewById(R.id.signUpButton);
 
         signUpButton.setOnClickListener(view -> {
             progressBar.setVisibility(View.VISIBLE);
+            signUpEmailLayout.setErrorEnabled(false);
+            signUpEmailLayout.setError("");
+            signUpPasswordLayout.setErrorEnabled(false);
+            signUpPasswordLayout.setError("");
+            signUpConfirmPasswordLayout.setErrorEnabled(false);
+            signUpConfirmPasswordLayout.setError("");
 
             if (signUpEmail.getText().toString().matches("")) {
-                showToastMessage.showToastMessage(getApplicationContext(), "Please enter your email");
+                signUpEmailLayout.setErrorEnabled(true);
+                signUpEmailLayout.setError("Please enter your email");
                 progressBar.setVisibility(View.GONE);
             } else if (signUpPassword.getText().toString().matches("")) {
-                showToastMessage.showToastMessage(getApplicationContext(), "Please enter your password");
+                signUpPasswordLayout.setErrorEnabled(true);
+                signUpPasswordLayout.setError("Please enter your password");
                 progressBar.setVisibility(View.GONE);
             } else if (signUpConfirmPassword.getText().toString().matches("")) {
-                showToastMessage.showToastMessage(getApplicationContext(), "Please enter your confirm password");
+                signUpConfirmPasswordLayout.setErrorEnabled(true);
+                signUpConfirmPasswordLayout.setError("Please enter your confirm password");
                 progressBar.setVisibility(View.GONE);
             } else if (!signUpPassword.getText().toString().equals(signUpConfirmPassword.getText().toString())) {
-                showToastMessage.showToastMessage(getApplicationContext(), "Your passwords are not match");
+                signUpConfirmPasswordLayout.setErrorEnabled(true);
+                signUpConfirmPasswordLayout.setError("Your passwords are not match");
                 progressBar.setVisibility(View.GONE);
             } else {
                 firebaseAuth = FirebaseAuth.getInstance();
@@ -81,7 +96,8 @@ public class SignUpActivity extends AppCompatActivity {
                             finish();
                         } else {
                             progressBar.setVisibility(View.GONE);
-                            showToastMessage.showToastMessage(getApplicationContext(), "This email have been used");
+                            signUpEmailLayout.setErrorEnabled(true);
+                            signUpEmailLayout.setError("This email have been used");
                         }
                     }
                 });

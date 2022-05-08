@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.memo.R;
 import com.example.memo.models.Note;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -36,6 +37,9 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.title.setText(noteItems.get(position).getTitle());
         holder.content.setText(noteItems.get(position).getContent());
+        if (!noteItems.get(position).isPinned()) {
+            holder.title.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        }
     }
 
     @Override
@@ -46,10 +50,12 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView content;
+        MaterialCardView noteItem;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            noteItem = itemView.findViewById(R.id.noteItem);
             title = itemView.findViewById(R.id.noteItemTitle);
             content = itemView.findViewById(R.id.noteItemContent);
         }

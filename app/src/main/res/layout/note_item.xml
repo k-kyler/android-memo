@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
@@ -7,6 +8,8 @@
     android:layout_gravity="center"
     app:cardCornerRadius="8dp"
     app:cardElevation="2dp"
+    android:clickable="true"
+    android:id="@+id/noteItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -23,6 +26,8 @@
             android:textColor="@color/black"
             android:textSize="20dp"
             android:layout_marginBottom="10dp"
+            android:drawableRight="@drawable/ic_baseline_bookmark_24"
+            android:drawableTint="#FFEB3B"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -35,4 +40,4 @@
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

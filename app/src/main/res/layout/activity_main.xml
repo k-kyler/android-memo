@@ -9,6 +9,8 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
+    <!-- Add search bar here -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/noteList"
         android:layout_width="match_parent"
@@ -16,7 +18,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addNoteButton"
-        android:layout_margin="20dp"
+        android:layout_margin="15dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:backgroundTint="@color/purple_500"

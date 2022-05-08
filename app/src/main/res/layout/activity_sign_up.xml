@@ -45,6 +45,7 @@
             android:textColorHint="#9F9F9F"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/signUpEmailLayout"
             style="@style/CustomTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -64,6 +65,7 @@
             android:textColorHint="#9F9F9F"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/signUpPasswordLayout"
             style="@style/CustomTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -83,6 +85,7 @@
             android:textColorHint="#9F9F9F"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/signUpConfirmPasswordLayout"
             style="@style/CustomTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText

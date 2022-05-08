@@ -14,12 +14,14 @@ import com.example.memo.utils.ShowToastMessage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity {
     private TextInputEditText signInEmail, signInPassword;
+    private TextInputLayout signInEmailLayout, signInPasswordLayout;
     private ProgressBar progressBar;
 
     private FirebaseAuth firebaseAuth;
@@ -65,19 +67,26 @@ public class SignInActivity extends AppCompatActivity {
 
     private void signIn() {
         signInEmail = findViewById(R.id.signInEmail);
+        signInEmailLayout = findViewById(R.id.signInEmailLayout);
         signInPassword = findViewById(R.id.signInPassword);
+        signInPasswordLayout = findViewById(R.id.signInPasswordLayout);
         progressBar = findViewById(R.id.progressBar);
-
         Button signInButton = findViewById(R.id.signInButton);
 
         signInButton.setOnClickListener(view -> {
             progressBar.setVisibility(View.VISIBLE);
+            signInEmailLayout.setErrorEnabled(false);
+            signInEmailLayout.setError("");
+            signInPasswordLayout.setErrorEnabled(false);
+            signInPasswordLayout.setError("");
 
             if (signInEmail.getText().toString().matches("")) {
-                showToastMessage.showToastMessage(getApplicationContext(), "Please enter your email");
+                signInEmailLayout.setErrorEnabled(true);
+                signInEmailLayout.setError("Please enter your email");
                 progressBar.setVisibility(View.GONE);
             } else if (signInPassword.getText().toString().matches("")) {
-                showToastMessage.showToastMessage(getApplicationContext(), "Please enter your password");
+                signInPasswordLayout.setErrorEnabled(true);
+                signInPasswordLayout.setError("Please enter your password");
                 progressBar.setVisibility(View.GONE);
             } else {
                 firebaseAuth = FirebaseAuth.getInstance();
@@ -101,7 +110,7 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    private void checkIfSignedIn() { ;
+    private void checkIfSignedIn() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (firebaseUser != null) {

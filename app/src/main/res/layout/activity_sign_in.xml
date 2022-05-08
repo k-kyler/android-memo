@@ -45,6 +45,7 @@
             android:textColorHint="#9F9F9F"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/signInEmailLayout"
             style="@style/CustomTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -64,6 +65,7 @@
             android:textColorHint="#9F9F9F"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/signInPasswordLayout"
             style="@style/CustomTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -75,24 +77,6 @@
                 android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <LinearLayout
-            android:layout_marginHorizontal="25dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/switchToForgotPasswordButton"
-                android:textColor="@color/purple_500"
-                android:text="Forgot password?"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/signInButton"
@@ -124,6 +108,20 @@
                 android:id="@+id/switchToSignUpButton"
                 android:textColor="@color/purple_500"
                 android:text="Create an account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/switchToForgotPasswordButton"
+                android:textColor="@color/purple_500"
+                android:text="Forgot password?"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

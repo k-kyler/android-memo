@@ -1,18 +1,18 @@
 package com.example.memo.models;
 
+import com.google.firebase.Timestamp;
+
 public class Note {
     private final String id;
     private String uid;
     private String title;
     private String type;
     private String content;
-    private String createdAt;
+    private Timestamp createdAt;
     private boolean isPinned;
     private boolean isRemoved;
 
-    public Note(String id, String uid, String title, String type, String content,
-//                String createdAt,
-                boolean isPinned, boolean isRemoved) {
+    public Note(String id, String uid, String title, String type, String content, Timestamp createdAt, boolean isPinned, boolean isRemoved) {
         this.id = id;
         this.uid = uid;
         this.title = title;
@@ -59,7 +59,7 @@ public class Note {
         this.content = content;
     }
 
-    public String getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
