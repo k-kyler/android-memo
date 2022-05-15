@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="disabled">#9C9C9C</color>
+    <color name="pinned">#FFEB3B</color>
 </resources>

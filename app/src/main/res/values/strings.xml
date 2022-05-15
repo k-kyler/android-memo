@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Memo</string>
+    <string name="search_hint">Type here to search</string>
 </resources>

@@ -8,15 +8,49 @@
     android:background="@color/white"
     tools:context=".SignUpActivity">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/menu_add_node"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="30dp">
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/topBarAvatar"
+                        />
+                </androidx.cardview.widget.CardView>
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <LinearLayout
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="60dp"
             android:padding="10dp"
             android:hint="Enter title"
             android:textColorHint="#9F9F9F"
@@ -35,27 +69,47 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginHorizontal="25dp"
-            android:padding="10dp"
-            android:hint="Enter content"
-            android:textColorHint="#9F9F9F"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/contentLayout"
-            style="@style/CustomTextInputLayout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/content"
-                android:importantForAutofill="no"
-                android:textColor="@color/black"
-                android:inputType="textMultiLine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Add rhe rest of fields here -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="25dp"
+            android:padding="10dp"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/contentLayout"
+                style="@style/CustomTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Enter content"
+                android:textColorHint="#9F9F9F">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.example.memo.ui.CustomDrawing
+                android:layout_marginTop="50dp"
+                android:id="@+id/viewDraw"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:visibility="invisible"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                />
+        </RelativeLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/confirmAddNoteButton"
@@ -70,6 +124,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+
     </LinearLayout>
 
+
+    <SeekBar
+        android:id="@+id/thickness"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/erase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thickness"
+        android:text="erase"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/draw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/erase"
+        android:text="draw"
+        android:visibility="gone"/>
 </RelativeLayout>
