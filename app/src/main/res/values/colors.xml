@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="disabled">#9C9C9C</color>
     <color name="pinned">#FFEB3B</color>
+    <color name="unpin">#E8E8E8</color>
 </resources>

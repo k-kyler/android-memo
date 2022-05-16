@@ -49,7 +49,8 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
             setTextViewDrawableColor(holder.pin, R.color.pinned);
         }
     }
-    private void setTextViewDrawableColor(TextView textView, int color) {
+
+    public void setTextViewDrawableColor(TextView textView, int color) {
         for (Drawable drawable : textView.getCompoundDrawables()) {
             if (drawable != null) {
                 drawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(textView.getContext(), color), PorterDuff.Mode.SRC_IN));
