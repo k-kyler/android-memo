@@ -68,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("noteId", noteArrayList.get(position).getId());
+                bundle.putString("title", noteArrayList.get(position).getTitle());
+                bundle.putString("type", noteArrayList.get(position).getType());
+                bundle.putString("content", noteArrayList.get(position).getContent());
+                bundle.putBoolean("isPinned", noteArrayList.get(position).isPinned());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

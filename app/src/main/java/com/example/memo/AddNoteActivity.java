@@ -29,6 +29,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private EditText titleEditText;
     private EditText contentEditText;
     private TextView pin;
+    private Button confirmBtn;
     private boolean isPinned;
 
     @Override
@@ -72,6 +73,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
         titleEditText = findViewById(R.id.title);
         contentEditText = findViewById(R.id.content);
+        confirmBtn = findViewById(R.id.confirmAddNoteButton);
 
         pin = findViewById(R.id.noteItemPin);
         isPinned = false;
@@ -80,7 +82,13 @@ public class AddNoteActivity extends AppCompatActivity {
     private void EditNoteInit() {
         Bundle bundle = this.getIntent().getExtras();
         if(bundle != null){
-            Log.e(":", "EditNoteInit: " + bundle.getString("noteId"));
+            titleEditText.setText(bundle.getString("title", ""));
+            contentEditText.setText(bundle.getString("content", ""));
+            confirmBtn.setText("Edit Note");
+            if(bundle.getBoolean("isPinned")){
+                isPinned = true;
+                setTextViewDrawableColor(pin, R.color.pinned);
+            }
         }
 
     }
