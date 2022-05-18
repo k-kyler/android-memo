@@ -1,25 +1,32 @@
 package com.example.memo.ui;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.memo.R;
 import com.example.memo.models.Note;
 import com.google.android.material.card.MaterialCardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyViewHolder> {
     Context context;
-    List<Note> noteItems;
+    ArrayList<Note> noteItems;
 
-    public NoteListAdapter(Context context, List<Note> noteItems) {
+    public NoteListAdapter(Context context, ArrayList<Note> noteItems) {
         this.context = context;
         this.noteItems = noteItems;
     }
@@ -37,8 +44,17 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.title.setText(noteItems.get(position).getTitle());
         holder.content.setText(noteItems.get(position).getContent());
-        if (!noteItems.get(position).isPinned()) {
-            holder.title.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        if (noteItems.get(position).isPinned()) {
+            //holder.title.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            setTextViewDrawableColor(holder.pin, R.color.pinned);
+        }
+    }
+
+    public void setTextViewDrawableColor(TextView textView, int color) {
+        for (Drawable drawable : textView.getCompoundDrawables()) {
+            if (drawable != null) {
+                drawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(textView.getContext(), color), PorterDuff.Mode.SRC_IN));
+            }
         }
     }
 
@@ -49,6 +65,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title;
+        TextView pin;
         TextView content;
         MaterialCardView noteItem;
 
@@ -57,7 +74,13 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.MyView
 
             noteItem = itemView.findViewById(R.id.noteItem);
             title = itemView.findViewById(R.id.noteItemTitle);
+            pin = itemView.findViewById(R.id.noteItemPin);
             content = itemView.findViewById(R.id.noteItemContent);
         }
+    }
+
+    public void filterList(ArrayList<Note> filterllist) {
+        noteItems = filterllist;
+        notifyDataSetChanged();
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="Main Menu"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:icon="@drawable/ic_baseline_view_list_24"
+                android:iconTint="@color/black"
+                android:id="@+id/changeLayout"
+                android:title="Change Layout"
+                app:showAsAction="ifRoom"/>
+
+            <item
+                android:icon="@drawable/ic_baseline_clear_24"
+                android:title="Logout"
+                android:id="@+id/signOut"
+                app:showAsAction="ifRoom"/>
+        </menu>
+    </item>
+
+</menu>
