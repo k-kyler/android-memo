@@ -1,26 +1,30 @@
 package com.example.memo;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.memo.ui.CustomDrawing;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+
+import com.example.memo.utils.ShowToastMessage;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddNoteActivity extends AppCompatActivity {
 
@@ -31,6 +35,9 @@ public class AddNoteActivity extends AppCompatActivity {
     private TextView pin;
     private Button confirmBtn;
     private boolean isPinned;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    private final ShowToastMessage showToastMessage = new ShowToastMessage();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +76,7 @@ public class AddNoteActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.topAppBar);
 
         topBarAvatar = findViewById(R.id.topBarAvatar);
-        topBarAvatar.setImageResource(R.drawable.android);
+        topBarAvatar.setImageResource(R.drawable.profile);
 
         titleEditText = findViewById(R.id.title);
         contentEditText = findViewById(R.id.content);
@@ -77,6 +84,33 @@ public class AddNoteActivity extends AppCompatActivity {
 
         pin = findViewById(R.id.noteItemPin);
         isPinned = false;
+
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, Object> data = new HashMap<>();
+
+                data.put("title", titleEditText.getText().toString());
+                data.put("content", contentEditText.getText().toString());
+                data.put("type", "normal");
+                data.put("isRemoved", false);
+                data.put("isPinned", isPinned);
+                data.put("uid", firebaseUser.getUid());
+                data.put("createdAt", FieldValue.serverTimestamp());
+
+                db.collection("notes").add(data).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Intent intent = new Intent(AddNoteActivity.this, MainActivity.class);
+
+                        showToastMessage.showToastMessage(getApplicationContext(), "Create note successful");
+                        startActivity(intent);
+                    } else {
+                        Log.e("Error query: ", String.valueOf(task.getException()));
+                        showToastMessage.showToastMessage(getApplicationContext(), "Failed to create");
+                    }
+                });
+            }
+        });
     }
 
     private void EditNoteInit() {

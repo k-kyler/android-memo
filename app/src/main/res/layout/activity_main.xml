@@ -14,13 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="30dp"
-        android:text="No data found"
+        android:textSize="20dp"
+        android:text="No note found"
         android:visibility="gone"/>
 
     <!-- Add search bar here -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:id="@+id/toolBar"
+        android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -34,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/menu_main"
-
+                android:backgroundTint="@color/purple_500"
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 >
 
@@ -71,7 +72,6 @@
         </com.google.android.material.appbar.AppBarLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/noteList"

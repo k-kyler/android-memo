@@ -2,19 +2,14 @@ package com.example.memo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -25,7 +20,6 @@ import com.example.memo.models.Note;
 import com.example.memo.ui.NoteListAdapter;
 import com.example.memo.ui.RecyclerItemClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,7 +28,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Note> noteArrayList;
@@ -196,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.topAppBar);
 
         topBarAvatar = findViewById(R.id.topBarAvatar);
-        topBarAvatar.setImageResource(R.drawable.android);
+        topBarAvatar.setImageResource(R.drawable.profile);
 
         searchView = findViewById(R.id.search);
         //searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>Search</font>"));

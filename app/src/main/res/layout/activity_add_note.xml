@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".SignUpActivity">
+    tools:context=".AddNoteActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/toolBar"
@@ -22,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/menu_add_node"
+                android:backgroundTint="@color/purple_500"
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 >
 
@@ -101,7 +102,7 @@
                 android:id="@+id/contentLayout"
                 style="@style/CustomTextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="150dp"
                 android:hint="Enter content"
                 android:textColorHint="#9F9F9F">
 
@@ -115,18 +116,6 @@
                     android:textColor="@color/black" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.example.memo.ui.CustomDrawing
-                android:layout_marginTop="50dp"
-                android:id="@+id/viewDraw"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:visibility="invisible"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:clickable="false"
-                />
         </RelativeLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -135,6 +124,7 @@
             android:padding="10dp"
             android:backgroundTint="@color/purple_500"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:text="Add note"
             android:textAllCaps="false"
             android:textColor="@color/white"

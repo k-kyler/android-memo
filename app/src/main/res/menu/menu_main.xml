@@ -9,7 +9,6 @@
         <menu>
             <item
                 android:icon="@drawable/ic_baseline_view_list_24"
-                android:iconTint="@color/black"
                 android:id="@+id/changeLayout"
                 android:title="Change Layout"
                 app:showAsAction="ifRoom"/>
