@@ -105,7 +105,7 @@ public class AddNoteActivity extends AppCompatActivity {
                         showToastMessage.showToastMessage(getApplicationContext(), "Create note successful");
                         startActivity(intent);
                     } else {
-                        Log.e("Error query: ", String.valueOf(task.getException()));
+                        Log.e("Error: ", String.valueOf(task.getException()));
                         showToastMessage.showToastMessage(getApplicationContext(), "Failed to create");
                     }
                 });
@@ -123,6 +123,30 @@ public class AddNoteActivity extends AppCompatActivity {
                 isPinned = true;
                 setTextViewDrawableColor(pin, R.color.pinned);
             }
+
+            confirmBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    db.collection("notes")
+                            .document(bundle.getString("noteId"))
+                            .update(
+                                    "title", titleEditText.getText().toString(),
+                                    "content", contentEditText.getText().toString(),
+                                    "isPinned", isPinned
+                            )
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Intent intent = new Intent(AddNoteActivity.this, MainActivity.class);
+
+                                    showToastMessage.showToastMessage(getApplicationContext(), "Edit note successful");
+                                    startActivity(intent);
+                                } else {
+                                    Log.e("Error: ", String.valueOf(task.getException()));
+                                    showToastMessage.showToastMessage(getApplicationContext(), "Failed to edit");
+                                }
+                    });
+                }
+            });
         }
 
     }

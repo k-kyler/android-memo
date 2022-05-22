@@ -1,5 +1,7 @@
 package com.example.memo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.memo.models.Note;
 import com.example.memo.ui.NoteListAdapter;
 import com.example.memo.ui.RecyclerItemClickListener;
+import com.example.memo.utils.ShowToastMessage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchView;
     private TextView notFoundText;
     private ImageView topBarAvatar;
+    private AlertDialog.Builder builder;
+    private final ShowToastMessage showToastMessage = new ShowToastMessage();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
         setNoteList();
         ToolbarMenu();
-        AddNode();
+        AddNote();
         NoteItemsClickHandler();
     }
 
     private void NoteItemsClickHandler() {
+        builder = new AlertDialog.Builder(this);
         noteList.addOnItemTouchListener(new RecyclerItemClickListener(this, noteList, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -71,7 +77,32 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLongItemClick(View view, int position) {
-
+                builder.setMessage("Do you want to move " + noteArrayList.get(position).getTitle() + " to trash?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        db.collection("notes")
+                                .document(noteArrayList.get(position).getId())
+                                .update("isRemoved", true)
+                                .addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        noteArrayList.remove(noteArrayList.get(position));
+                                        noteListAdapter.notifyDataSetChanged();
+                                        showToastMessage.showToastMessage(getApplicationContext(), "Have moved note to trash");
+                                    } else {
+                                        Log.e("Error: ", String.valueOf(task.getException()));
+                                        showToastMessage.showToastMessage(getApplicationContext(), "Failed to move note to trash");
+                                    }
+                                });
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.setTitle("Hey there!");
+                alertDialog.show();
             }
         }));
     }
@@ -111,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
         for (Note item : noteArrayList) {
             if (item.getTitle().toLowerCase().contains(newText.toLowerCase())) {
                 filteredlist.add(item);
+            } else if (item.getContent().toLowerCase().contains(newText.toLowerCase())) {
+                filteredlist.add(item);
             }
         }
         if (filteredlist.isEmpty()) {
@@ -129,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void AddNode(){
+    private void AddNote(){
         addNoteButton = findViewById(R.id.addNoteButton);
         addNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
             .orderBy("isPinned", Query.Direction.DESCENDING)
             .orderBy("createdAt", Query.Direction.DESCENDING)
             .whereEqualTo("uid", firebaseUser.getUid())
+            .whereEqualTo("isRemoved", false)
             .get()
             .addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -206,8 +240,5 @@ public class MainActivity extends AppCompatActivity {
         else {
             noteList.setLayoutManager(new LinearLayoutManager(this));
         }
-
-
     }
-
 }

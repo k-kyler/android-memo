@@ -8,14 +8,14 @@
         app:showAsAction="always">
         <menu>
             <item
-                android:icon="@drawable/ic_baseline_view_list_24"
+                android:icon="@drawable/ic_baseline_auto_awesome_mosaic_24"
                 android:id="@+id/changeLayout"
-                android:title="Change Layout"
+                android:title="Change layout"
                 app:showAsAction="ifRoom"/>
 
             <item
-                android:icon="@drawable/ic_baseline_clear_24"
-                android:title="Logout"
+                android:icon="@drawable/ic_baseline_logout_24"
+                android:title="Sign out"
                 android:id="@+id/signOut"
                 app:showAsAction="ifRoom"/>
         </menu>
