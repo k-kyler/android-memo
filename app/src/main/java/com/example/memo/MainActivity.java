@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.example.memo.ui.NoteListAdapter;
 import com.example.memo.ui.RecyclerItemClickListener;
 import com.example.memo.utils.ShowToastMessage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView topBarAvatar;
     private AlertDialog.Builder builder;
     private final ShowToastMessage showToastMessage = new ShowToastMessage();
+    private DrawerLayout drawerLayout;
+    private NavigationView headerDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         ToolbarMenu();
         AddNote();
         NoteItemsClickHandler();
+        openDrawer();
     }
 
     private void NoteItemsClickHandler() {
@@ -77,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLongItemClick(View view, int position) {
-                builder.setMessage("Do you want to move " + noteArrayList.get(position).getTitle() + " to trash?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setMessage("Remove " + noteArrayList.get(position).getTitle() + "?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         db.collection("notes")
@@ -240,5 +245,13 @@ public class MainActivity extends AppCompatActivity {
         else {
             noteList.setLayoutManager(new LinearLayoutManager(this));
         }
+    }
+
+    private void openDrawer() {
+        topBarAvatar = findViewById(R.id.topBarAvatar);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        headerDrawer = findViewById(R.id.headerDrawer);
+        topBarAvatar.setOnClickListener(view -> drawerLayout.open());
+        headerDrawer.setNavigationItemSelectedListener(item -> false);
     }
 }
