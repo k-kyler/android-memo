@@ -20,9 +20,14 @@
             android:title="Labels">
             <menu>
                 <item
-                    android:id="@+id/importantLabel"
+                    android:id="@+id/workLabel"
                     android:icon="@drawable/ic_baseline_label_24"
-                    android:title="Important" />
+                    android:title="Work" />
+
+                <item
+                    android:id="@+id/personalLabel"
+                    android:icon="@drawable/ic_baseline_label_24"
+                    android:title="Personal" />
 
                 <item
                     android:id="@+id/addNewLabel"
@@ -44,5 +49,13 @@
             android:id="@+id/trash"
             android:icon="@drawable/ic_baseline_delete_24"
             android:title="Trash" />
+    </group>
+
+    <group
+        android:id="@+id/drawerGroup4">
+        <item
+            android:icon="@drawable/ic_baseline_output_24"
+            android:title="Sign out"
+            android:id="@+id/signOut" />
     </group>
 </menu>

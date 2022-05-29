@@ -136,10 +136,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.signOut:
-                        SignOut();
                     case R.id.changeLayout:
                         ChangeLayout();
+                        break;
                 }
                 return false;
             }
@@ -187,14 +186,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private void SignOut() {
-        if(firebaseUser != null){
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(MainActivity.this, SignInActivity.class));
-            finish();
-        }
     }
 
     private ArrayList<Note> getNoteList() {
@@ -294,6 +285,28 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.open();
         });
         headerDrawer.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.myNotes:
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    finish();
+                    break;
+
+                case R.id.setting:
+                    startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                    break;
+
+                case R.id.trash:
+                    startActivity(new Intent(MainActivity.this, TrashActivity.class));
+                    break;
+
+                case R.id.signOut:
+                    if(firebaseUser != null){
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                        finish();
+                    }
+                    break;
+            }
             drawerLayout.close();
             return false;
         });

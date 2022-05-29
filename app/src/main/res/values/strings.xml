@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Memo</string>
-    <string name="search_hint">Find your note...</string>
+    <string name="search_hint">Find your note</string>
 </resources>

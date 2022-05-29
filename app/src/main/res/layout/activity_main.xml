@@ -37,8 +37,7 @@
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:id="@+id/topBarAvatar"
-                        />
+                        android:id="@+id/topBarAvatar" />
                 </androidx.cardview.widget.CardView>
 
                 <LinearLayout

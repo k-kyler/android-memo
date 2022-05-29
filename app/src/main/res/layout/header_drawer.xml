@@ -28,23 +28,23 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/userVerifiedStatus"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginHorizontal="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/green_500"
         app:chipBackgroundColor="@color/green_200"
         android:visibility="gone"
-        android:text="Verified"/>
+        android:text="Verified" />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/userUnverifiedStatus"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginHorizontal="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#C0C2C6"
         android:visibility="gone"
-        android:text="Unverified"/>
+        android:text="Unverified" />
 
 </LinearLayout>
