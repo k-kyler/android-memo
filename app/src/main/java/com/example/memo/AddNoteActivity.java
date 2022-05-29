@@ -37,6 +37,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private final ShowToastMessage showToastMessage = new ShowToastMessage();
+    private int numberOfNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
         if (bundle != null) {
             addNoteTitle.setText(bundle.getString("screenTitle", ""));
+            numberOfNotes = bundle.getInt("numberOfNotes", 0);
         }
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +104,7 @@ public class AddNoteActivity extends AppCompatActivity {
                 data.put("uid", firebaseUser.getUid());
                 data.put("createdAt", FieldValue.serverTimestamp());
 
-                if (!firebaseUser.isEmailVerified()) {
+                if (!firebaseUser.isEmailVerified() && numberOfNotes == 5) {
                     showToastMessage.showToastMessage(getApplicationContext(), "You need to verify your account to create more than 5 notes");
                     return;
                 }

@@ -17,10 +17,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignUpActivity extends AppCompatActivity {
-    private TextInputEditText signUpEmail, signUpPassword, signUpConfirmPassword;
-    private TextInputLayout signUpEmailLayout, signUpPasswordLayout, signUpConfirmPasswordLayout;
+    private TextInputEditText signUpUsername, signUpEmail, signUpPassword, signUpConfirmPassword;
+    private TextInputLayout signUpUsernameLayout, signUpEmailLayout, signUpPasswordLayout, signUpConfirmPasswordLayout;
     private ProgressBar progressBar;
 
     private FirebaseAuth firebaseAuth;
@@ -47,6 +49,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signUp() {
+        signUpUsername = findViewById(R.id.signUpUsername);
+        signUpUsernameLayout = findViewById(R.id.signUpUsernameLayout);
         signUpEmail = findViewById(R.id.signUpEmail);
         signUpEmailLayout = findViewById(R.id.signUpEmailLayout);
         signUpPassword = findViewById(R.id.signUpPassword);
@@ -59,6 +63,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         signUpButton.setOnClickListener(view -> {
             progressBar.setVisibility(View.VISIBLE);
+            signUpUsernameLayout.setErrorEnabled(false);
+            signUpUsernameLayout.setError("");
             signUpEmailLayout.setErrorEnabled(false);
             signUpEmailLayout.setError("");
             signUpPasswordLayout.setErrorEnabled(false);
@@ -66,7 +72,11 @@ public class SignUpActivity extends AppCompatActivity {
             signUpConfirmPasswordLayout.setErrorEnabled(false);
             signUpConfirmPasswordLayout.setError("");
 
-            if (signUpEmail.getText().toString().matches("")) {
+            if (signUpUsername.getText().toString().matches("")) {
+                signUpUsernameLayout.setErrorEnabled(true);
+                signUpUsernameLayout.setError("Please enter your username");
+                progressBar.setVisibility(View.GONE);
+            } else if (signUpEmail.getText().toString().matches("")) {
                 signUpEmailLayout.setErrorEnabled(true);
                 signUpEmailLayout.setError("Please enter your email");
                 progressBar.setVisibility(View.GONE);
@@ -88,8 +98,17 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(SignUpActivity.this, ActiveAccountActivity.class);
+                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                            UserProfileChangeRequest update = new UserProfileChangeRequest
+                                    .Builder()
+                                    .setDisplayName(signUpUsername.getText().toString())
+                                    .build();
 
+                            if (firebaseUser != null) {
+                                firebaseUser.updateProfile(update);
+                            }
+
+                            Intent intent = new Intent(SignUpActivity.this, ActiveAccountActivity.class);
                             progressBar.setVisibility(View.GONE);
                             showToastMessage.showToastMessage(getApplicationContext(), "Sign up successful");
                             startActivity(intent);

@@ -6,10 +6,11 @@
             android:id="@+id/myNotes"
             android:icon="@drawable/ic_baseline_library_books_24"
             android:title="My Notes" />
+
         <item
-            android:id="@+id/trash"
-            android:icon="@drawable/ic_baseline_delete_24"
-            android:title="Trash" />
+            android:id="@+id/reminders"
+            android:icon="@drawable/ic_baseline_auto_awesome_24"
+            android:title="Reminders" />
     </group>
 
     <group
@@ -20,10 +21,28 @@
             <menu>
                 <item
                     android:id="@+id/importantLabel"
-                    android:icon="@drawable/ic_baseline_auto_awesome_24"
+                    android:icon="@drawable/ic_baseline_label_24"
                     android:title="Important" />
+
+                <item
+                    android:id="@+id/addNewLabel"
+                    android:icon="@drawable/ic_baseline_add_24"
+                    android:title="Add new label" />
 
             </menu>
         </item>
+    </group>
+
+    <group
+        android:id="@+id/drawerGroup3">
+        <item
+            android:id="@+id/setting"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="Setting" />
+
+        <item
+            android:id="@+id/trash"
+            android:icon="@drawable/ic_baseline_delete_24"
+            android:title="Trash" />
     </group>
 </menu>

@@ -9,24 +9,24 @@
     tools:context=".SignUpActivity">
 
     <LinearLayout
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageView
-            android:src="@drawable/logo"
             android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_height="60dp"
+            android:src="@drawable/logo" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="Memo"
             android:textColor="@color/black"
-            android:textSize="30dp"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="30dp" />
 
     </LinearLayout>
 
@@ -40,6 +40,26 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginHorizontal="25dp"
             android:layout_marginTop="30dp"
+            android:padding="10dp"
+            android:hint="Enter username"
+            android:textColorHint="#9F9F9F"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signUpUsernameLayout"
+            style="@style/CustomTextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUpUsername"
+                android:textColor="@color/black"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginHorizontal="25dp"
             android:padding="10dp"
             android:hint="Enter email"
             android:textColorHint="#9F9F9F"

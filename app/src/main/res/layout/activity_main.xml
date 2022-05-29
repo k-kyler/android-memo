@@ -26,9 +26,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/menu_main"
-                android:backgroundTint="@color/purple_500"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
-                >
+                app:titleTextColor="@color/white"
+                style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                android:backgroundTint="@color/purple_500">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -49,15 +49,13 @@
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/search"
-                    app:iconifiedByDefault="false"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:nextFocusUp="@id/search"
-                    android:nextFocusLeft="@id/search"
-                    app:queryHint="@string/search_hint"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="end"
-
-                    />
+                    android:nextFocusLeft="@id/search"
+                    android:nextFocusUp="@id/search"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="@string/search_hint" />
             </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -80,8 +78,7 @@
                 android:layout_marginTop="15dp"
                 android:id="@+id/noteList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/toolBar"/>
+                android:layout_height="match_parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addNoteButton"

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.memo.models.Note;
 import com.example.memo.ui.NoteListAdapter;
 import com.example.memo.ui.RecyclerItemClickListener;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     boolean isGrid = false;
     private SearchView searchView;
     private TextView notFoundText;
+    private TextView userName;
+    private TextView userEmail;
     private ImageView topBarAvatar;
     private AlertDialog.Builder builder;
     private final ShowToastMessage showToastMessage = new ShowToastMessage();
@@ -144,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void FilterText(String newText) {
-        Log.e("TAG", "FilterText: "+newText );
         ArrayList<Note> filteredlist = new ArrayList<>();
         filteredlist.clear();
         notFoundText.setVisibility(View.GONE);
@@ -176,9 +178,11 @@ public class MainActivity extends AppCompatActivity {
         addNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                noteArrayList = getNoteList();
                 Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("screenTitle", "Add new note");
+                bundle.putInt("numberOfNotes", noteArrayList.size());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -236,7 +240,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.topAppBar);
 
         topBarAvatar = findViewById(R.id.topBarAvatar);
-        topBarAvatar.setImageResource(R.drawable.profile);
+
+        if (firebaseUser != null && firebaseUser.getPhotoUrl().toString() != null) {
+            Glide.with(getApplicationContext()).load(firebaseUser.getPhotoUrl()).centerCrop().into(topBarAvatar);
+        } else {
+            topBarAvatar.setImageResource(R.drawable.profile);
+        }
 
         searchView = findViewById(R.id.search);
         //searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>Search</font>"));
@@ -260,18 +269,33 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         headerDrawer = findViewById(R.id.headerDrawer);
 
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         topBarAvatar.setOnClickListener(view -> {
             userVerifiedStatus = findViewById(R.id.userVerifiedStatus);
             userUnverifiedStatus = findViewById(R.id.userUnverifiedStatus);
+            userName = findViewById(R.id.userName);
+            userEmail = findViewById(R.id.userEmail);
 
-            if (firebaseUser.isEmailVerified()) {
+            if (firebaseUser != null && firebaseUser.isEmailVerified()) {
                 userVerifiedStatus.setVisibility(View.VISIBLE);
             } else {
                 userUnverifiedStatus.setVisibility(View.VISIBLE);
+                userUnverifiedStatus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(MainActivity.this, ActiveAccountActivity.class));
+                        finish();
+                    }
+                });
             }
 
+            userName.setText(firebaseUser.getDisplayName());
+            userEmail.setText(firebaseUser.getEmail());
             drawerLayout.open();
         });
-        headerDrawer.setNavigationItemSelectedListener(item -> false);
+        headerDrawer.setNavigationItemSelectedListener(item -> {
+            drawerLayout.close();
+            return false;
+        });
     }
 }
