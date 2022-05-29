@@ -10,4 +10,6 @@
     <color name="disabled">#9C9C9C</color>
     <color name="pinned">#FFEB3B</color>
     <color name="unpin">#E8E8E8</color>
+    <color name="green_500">#65CF69</color>
+    <color name="green_200">#C3EDC5</color>
 </resources>

@@ -23,6 +23,7 @@ import com.example.memo.models.Note;
 import com.example.memo.ui.NoteListAdapter;
 import com.example.memo.ui.RecyclerItemClickListener;
 import com.example.memo.utils.ShowToastMessage;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.Timestamp;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private final ShowToastMessage showToastMessage = new ShowToastMessage();
     private DrawerLayout drawerLayout;
     private NavigationView headerDrawer;
+    private Chip userVerifiedStatus;
+    private Chip userUnverifiedStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("type", noteArrayList.get(position).getType());
                 bundle.putString("content", noteArrayList.get(position).getContent());
                 bundle.putBoolean("isPinned", noteArrayList.get(position).isPinned());
+                bundle.putString("screenTitle", "Edit note");
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -172,7 +176,11 @@ public class MainActivity extends AppCompatActivity {
         addNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddNoteActivity.class));
+                Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("screenTitle", "Add new note");
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
@@ -251,7 +259,19 @@ public class MainActivity extends AppCompatActivity {
         topBarAvatar = findViewById(R.id.topBarAvatar);
         drawerLayout = findViewById(R.id.drawerLayout);
         headerDrawer = findViewById(R.id.headerDrawer);
-        topBarAvatar.setOnClickListener(view -> drawerLayout.open());
+
+        topBarAvatar.setOnClickListener(view -> {
+            userVerifiedStatus = findViewById(R.id.userVerifiedStatus);
+            userUnverifiedStatus = findViewById(R.id.userUnverifiedStatus);
+
+            if (firebaseUser.isEmailVerified()) {
+                userVerifiedStatus.setVisibility(View.VISIBLE);
+            } else {
+                userUnverifiedStatus.setVisibility(View.VISIBLE);
+            }
+
+            drawerLayout.open();
+        });
         headerDrawer.setNavigationItemSelectedListener(item -> false);
     }
 }

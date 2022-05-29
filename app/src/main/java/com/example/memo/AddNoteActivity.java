@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,10 +28,10 @@ import java.util.Map;
 public class AddNoteActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private ImageView topBarAvatar;
     private EditText titleEditText;
     private EditText contentEditText;
     private TextView pin;
+    private TextView addNoteTitle;
     private Button confirmBtn;
     private boolean isPinned;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -75,15 +74,20 @@ public class AddNoteActivity extends AppCompatActivity {
     private void AddNoteInit() {
         toolbar = findViewById(R.id.topAppBar);
 
-        topBarAvatar = findViewById(R.id.topBarAvatar);
-        topBarAvatar.setImageResource(R.drawable.profile);
-
         titleEditText = findViewById(R.id.title);
         contentEditText = findViewById(R.id.content);
         confirmBtn = findViewById(R.id.confirmAddNoteButton);
 
         pin = findViewById(R.id.noteItemPin);
         isPinned = false;
+
+        addNoteTitle = findViewById(R.id.addNoteTitle);
+
+        Bundle bundle = this.getIntent().getExtras();
+
+        if (bundle != null) {
+            addNoteTitle.setText(bundle.getString("screenTitle", ""));
+        }
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +101,11 @@ public class AddNoteActivity extends AppCompatActivity {
                 data.put("isPinned", isPinned);
                 data.put("uid", firebaseUser.getUid());
                 data.put("createdAt", FieldValue.serverTimestamp());
+
+                if (!firebaseUser.isEmailVerified()) {
+                    showToastMessage.showToastMessage(getApplicationContext(), "You need to verify your account to create more than 5 notes");
+                    return;
+                }
 
                 db.collection("notes").add(data).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -114,11 +123,13 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     private void EditNoteInit() {
+        addNoteTitle = findViewById(R.id.addNoteTitle);
+
         Bundle bundle = this.getIntent().getExtras();
         if(bundle != null){
             titleEditText.setText(bundle.getString("title", ""));
             contentEditText.setText(bundle.getString("content", ""));
-            confirmBtn.setText("Edit Note");
+            addNoteTitle.setText(bundle.getString("screenTitle", ""));
             if(bundle.getBoolean("isPinned")){
                 isPinned = true;
                 setTextViewDrawableColor(pin, R.color.pinned);

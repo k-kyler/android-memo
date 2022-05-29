@@ -26,16 +26,13 @@
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 >
 
-                <androidx.cardview.widget.CardView
+                <TextView
+                    android:id="@+id/addNoteTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="30dp">
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:id="@+id/topBarAvatar"
-                        />
-                </androidx.cardview.widget.CardView>
+                    android:text="Add new note"
+                    android:textColor="@color/white"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -102,7 +99,7 @@
                 android:id="@+id/contentLayout"
                 style="@style/CustomTextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:hint="Enter content"
                 android:textColorHint="#9F9F9F">
 
@@ -125,7 +122,7 @@
             android:backgroundTint="@color/purple_500"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:text="Add note"
+            android:text="Confirm"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:layout_marginHorizontal="35dp"
