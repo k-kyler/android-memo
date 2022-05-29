@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="Trash Menu"
+        android:iconTint="@color/white"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:icon="@drawable/ic_baseline_clear_24"
+                android:id="@+id/emptyTrash"
+                android:title="Empty trash"
+                app:showAsAction="ifRoom"/>
+        </menu>
+    </item>
+
+</menu>
