@@ -97,8 +97,10 @@ public class MainActivity extends AppCompatActivity {
                                 .update("isRemoved", true)
                                 .addOnCompleteListener(task -> {
                                     if (task.isSuccessful()) {
-                                        noteArrayList.remove(noteArrayList.get(position));
-                                        noteListAdapter.notifyDataSetChanged();
+//                                        noteArrayList.remove(noteArrayList.get(position));
+//                                        noteListAdapter.notifyDataSetChanged();
+                                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                                        finish();
                                         showToastMessage.showToastMessage(getApplicationContext(), "Have moved note to trash");
                                     } else {
                                         Log.e("Error: ", String.valueOf(task.getException()));

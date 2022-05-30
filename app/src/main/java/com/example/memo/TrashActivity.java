@@ -100,7 +100,7 @@ public class TrashActivity extends AppCompatActivity {
                     }
                 });
                 AlertDialog alertDialog = builder.create();
-                alertDialog.setTitle("Warning!");
+                alertDialog.setTitle("Hey there!");
                 alertDialog.show();
             }
 
