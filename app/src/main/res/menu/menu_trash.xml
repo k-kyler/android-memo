@@ -9,6 +9,12 @@
         app:showAsAction="always">
         <menu>
             <item
+                android:icon="@drawable/ic_baseline_refresh_24"
+                android:id="@+id/restoreAll"
+                android:title="Restore all"
+                app:showAsAction="ifRoom"/>
+
+            <item
                 android:icon="@drawable/ic_baseline_clear_24"
                 android:id="@+id/emptyTrash"
                 android:title="Empty trash"

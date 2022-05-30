@@ -8,12 +8,21 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingActivity extends AppCompatActivity {
-    private TextView changePassword;
+    private TextView changePassword, settingTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        settingTitle = findViewById(R.id.settingTitle);
+        settingTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingActivity.this, MainActivity.class));
+                finish();
+            }
+        });
 
         switchToChangePass();
     }

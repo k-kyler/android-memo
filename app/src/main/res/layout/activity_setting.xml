@@ -22,6 +22,9 @@
                 style="@style/Widget.MaterialComponents.Toolbar.Primary">
 
                 <TextView
+                    android:id="@+id/settingTitle"
+                    android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
+                    android:drawableTint="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Setting"

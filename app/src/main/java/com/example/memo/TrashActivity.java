@@ -2,11 +2,13 @@ package com.example.memo;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.memo.models.Note;
 import com.example.memo.ui.NoteListAdapter;
 import com.example.memo.ui.RecyclerItemClickListener;
+import com.example.memo.utils.ShowToastMessage;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,11 +37,22 @@ public class TrashActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private AlertDialog.Builder builder;
+    private final ShowToastMessage showToastMessage = new ShowToastMessage();
+    private TextView trashTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trash);
+
+        trashTitle = findViewById(R.id.trashTitle);
+        trashTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(TrashActivity.this, MainActivity.class));
+                finish();
+            }
+        });
 
         setNoteList();
         ToolbarMenu();
@@ -50,31 +64,73 @@ public class TrashActivity extends AppCompatActivity {
         noteList.addOnItemTouchListener(new RecyclerItemClickListener(this, noteList, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-                builder.setMessage("Completely remove " + noteArrayList.get(position).getTitle() + "?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setMessage("Completely remove " + noteArrayList.get(position).getTitle() + "?").setCancelable(true).setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // Handle completely remove note from firestore here
+                        db.collection("notes")
+                                .document(noteArrayList.get(position).getId())
+                                .delete()
+                                .addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        noteArrayList.remove(noteArrayList.get(position));
+                                        noteListAdapter.notifyDataSetChanged();
+                                        showToastMessage.showToastMessage(getApplicationContext(), "Remove note successful");
+                                    } else {
+                                        Log.e("Error: ", String.valueOf(task.getException()));
+                                        showToastMessage.showToastMessage(getApplicationContext(), "Failed to remove note");
+                                    }
+                                });
                     }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Restore", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
+                        db.collection("notes")
+                                .document(noteArrayList.get(position).getId())
+                                .update("isRemoved", false)
+                                .addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        noteArrayList.remove(noteArrayList.get(position));
+                                        noteListAdapter.notifyDataSetChanged();
+                                        showToastMessage.showToastMessage(getApplicationContext(), "Restore note successful");
+                                    } else {
+                                        Log.e("Error: ", String.valueOf(task.getException()));
+                                        showToastMessage.showToastMessage(getApplicationContext(), "Failed to restore note");
+                                    }
+                                });
                     }
                 });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.setTitle("Warning!");
                 alertDialog.show();
             }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
         }));
     }
 
+    private void restoreAll() {
+        for (int i = 0; i < noteArrayList.size(); i++) {
+            int position = i;
+            db.collection("notes")
+                    .document(noteArrayList.get(position).getId())
+                    .update("isRemoved", false);
+        }
+        noteArrayList.clear();
+        noteListAdapter.notifyDataSetChanged();
+    }
+
     private void emptyTrash() {
-        // Handle completely remove all notes here
+        for (int i = 0; i < noteArrayList.size(); i++) {
+            int position = i;
+            db.collection("notes")
+                    .document(noteArrayList.get(position).getId())
+                    .delete();
+        }
+        noteArrayList.clear();
+        noteListAdapter.notifyDataSetChanged();
     }
 
     private void ToolbarMenu() {
@@ -82,6 +138,10 @@ public class TrashActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
+                    case R.id.restoreAll:
+                        restoreAll();
+                        break;
+
                     case R.id.emptyTrash:
                         emptyTrash();
                         break;
