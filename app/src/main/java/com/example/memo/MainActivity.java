@@ -179,11 +179,13 @@ public class MainActivity extends AppCompatActivity {
         addNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                noteArrayList = getNoteList();
+                if (!firebaseUser.isEmailVerified() && noteArrayList.size() == 5) {
+                    showToastMessage.showToastMessage(getApplicationContext(), "You need to verify your account to create more than 5 notes");
+                    return;
+                }
                 Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("screenTitle", "Add new note");
-                bundle.putInt("numberOfNotes", noteArrayList.size());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -234,11 +236,11 @@ public class MainActivity extends AppCompatActivity {
 
         topBarAvatar = findViewById(R.id.topBarAvatar);
 
-        if (firebaseUser != null && firebaseUser.getPhotoUrl().toString() != null) {
-            Glide.with(getApplicationContext()).load(firebaseUser.getPhotoUrl()).centerCrop().into(topBarAvatar);
-        } else {
+        //if (firebaseUser != null && firebaseUser.getPhotoUrl().toString() != null) {
+            //Glide.with(getApplicationContext()).load(firebaseUser.getPhotoUrl()).centerCrop().into(topBarAvatar);
+        //} else {
             topBarAvatar.setImageResource(R.drawable.profile);
-        }
+        //}
 
         searchView = findViewById(R.id.search);
         //searchView.setQueryHint(Html.fromHtml("<font color = #ffffff>Search</font>"));
@@ -298,7 +300,11 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.trash:
-                    startActivity(new Intent(MainActivity.this, TrashActivity.class));
+                    Intent intent = new Intent(MainActivity.this, TrashActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("numberOfNotes", noteArrayList.size());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                     break;
 
                 case R.id.signOut:

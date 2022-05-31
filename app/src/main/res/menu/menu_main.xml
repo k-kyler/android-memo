@@ -2,18 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Main Menu"
-        android:iconTint="@color/white"
-        app:showAsAction="always">
-        <menu>
+
             <item
                 android:icon="@drawable/ic_baseline_auto_awesome_mosaic_24"
                 android:id="@+id/changeLayout"
                 android:title="Change layout"
-                app:showAsAction="ifRoom"/>
-        </menu>
-    </item>
+                app:showAsAction="always"/>
+
 
 </menu>

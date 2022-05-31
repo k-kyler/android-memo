@@ -39,6 +39,7 @@ public class TrashActivity extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private final ShowToastMessage showToastMessage = new ShowToastMessage();
     private TextView trashTitle;
+    private int numberOfNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,10 @@ public class TrashActivity extends AppCompatActivity {
             }
         });
 
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null) {
+            numberOfNotes = bundle.getInt("numberOfNotes", 0);
+        }
         setNoteList();
         ToolbarMenu();
         NoteItemsClickHandler();
@@ -84,6 +89,10 @@ public class TrashActivity extends AppCompatActivity {
                 }).setNegativeButton("Restore", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        if (!firebaseUser.isEmailVerified() && numberOfNotes + 1 > 5) {
+                            showToastMessage.showToastMessage(getApplicationContext(), "You need to verify your account to add more than 5 notes");
+                            return;
+                        }
                         db.collection("notes")
                                 .document(noteArrayList.get(position).getId())
                                 .update("isRemoved", false)
@@ -112,6 +121,10 @@ public class TrashActivity extends AppCompatActivity {
     }
 
     private void restoreAll() {
+        if (!firebaseUser.isEmailVerified() && numberOfNotes + noteArrayList.size() > 5) {
+            showToastMessage.showToastMessage(getApplicationContext(), "You need to verify your account to add more than 5 notes");
+            return;
+        }
         for (int i = 0; i < noteArrayList.size(); i++) {
             int position = i;
             db.collection("notes")

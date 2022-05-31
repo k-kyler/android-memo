@@ -87,6 +87,9 @@ public class AddNoteActivity extends AppCompatActivity {
         Bundle bundle = this.getIntent().getExtras();
 
         if (bundle != null) {
+            if (!bundle.getString("screenTitle", "").equals("Add new note")){
+                return;
+            }
             addNoteTitle.setText(bundle.getString("screenTitle", ""));
             numberOfNotes = bundle.getInt("numberOfNotes", 0);
         }
@@ -104,6 +107,8 @@ public class AddNoteActivity extends AppCompatActivity {
                 data.put("uid", firebaseUser.getUid());
                 data.put("createdAt", FieldValue.serverTimestamp());
 
+                Log.e("TAG", "onClick: " + numberOfNotes );
+                Log.e("TAG", "onClick: " + firebaseUser.isEmailVerified() );
                 if (!firebaseUser.isEmailVerified() && numberOfNotes == 5) {
                     showToastMessage.showToastMessage(getApplicationContext(), "You need to verify your account to create more than 5 notes");
                     return;
@@ -129,6 +134,9 @@ public class AddNoteActivity extends AppCompatActivity {
 
         Bundle bundle = this.getIntent().getExtras();
         if(bundle != null){
+            if (!bundle.getString("screenTitle", "").equals("Edit note")){
+                return;
+            }
             titleEditText.setText(bundle.getString("title", ""));
             contentEditText.setText(bundle.getString("content", ""));
             addNoteTitle.setText(bundle.getString("screenTitle", ""));
